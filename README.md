@@ -1,6 +1,7 @@
 **Yii2 Annotations extension**
 
 Use doctrine/annotations in Yii2 projects with Yii2 caching drivers
+
 **Install**
 ````
 composer require egorov/yii2-annotations
