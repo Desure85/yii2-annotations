@@ -137,4 +137,4 @@ Access one annotation of a property
 $reader->getPropertyAnnotation(\ReflectionProperty $property, $annotationName);
 ````
 
-More info [doctrine/annotations custom annotations](https://www.doctrine-project.org/projects/doctrine-annotations/en/latest/custom.html#custom-annotation-classes)
+More info [doctrine/annotations custom annotations](https://www.doctrine-project.org/projects/doctrine-annotations/en/1.6/custom.html#custom-annotation-classes)
