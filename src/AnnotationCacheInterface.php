@@ -1,21 +1,25 @@
 <?php
+
 namespace yii\annotations;
 
-use yii\caching\CacheInterface;
-
-class AnnotationCache implements AnnotationCacheInterface
+/**
+ * Interface for cache drivers.
+ *
+ * @link   www.doctrine-project.org
+ */
+interface AnnotationCacheInterface
 {
-
-    private $yiiCache;
-
+    public const STATS_HITS             = 'hits';
+    public const STATS_MISSES           = 'misses';
+    public const STATS_UPTIME           = 'uptime';
+    public const STATS_MEMORY_USAGE     = 'memory_usage';
+    public const STATS_MEMORY_AVAILABLE = 'memory_available';
     /**
-     * AnnotationCache constructor.
-     * @param $yiiCache
+     * Only for backward compatibility (may be removed in next major release)
+     *
+     * @deprecated
      */
-    public function __construct(CacheInterface $yiiCache)
-    {
-        $this->yiiCache = $yiiCache;
-    }
+    public const STATS_MEMORY_AVAILIABLE = 'memory_available';
 
     /**
      * Fetches an entry from the cache.
@@ -24,10 +28,7 @@ class AnnotationCache implements AnnotationCacheInterface
      *
      * @return mixed The cached data or FALSE, if no cache entry exists for the given id.
      */
-    public function fetch($id)
-    {
-        return $this->yiiCache->get($id);
-    }
+    public function fetch($id);
 
     /**
      * Tests if an entry exists in the cache.
@@ -36,28 +37,22 @@ class AnnotationCache implements AnnotationCacheInterface
      *
      * @return bool TRUE if a cache entry exists for the given cache id, FALSE otherwise.
      */
-    public function contains($id)
-    {
-        return $this->yiiCache->exists($id);
-    }
+    public function contains($id);
 
     /**
      * Puts data into the cache.
      *
      * If a cache entry with the given id already exists, its data will be replaced.
      *
-     * @param string $id The cache id.
-     * @param mixed $data The cache entry/data.
-     * @param int $lifeTime The lifetime in number of seconds for this cache entry.
+     * @param string $id       The cache id.
+     * @param mixed  $data     The cache entry/data.
+     * @param int    $lifeTime The lifetime in number of seconds for this cache entry.
      *                         If zero (the default), the entry never expires (although it may be deleted from the cache
      *                         to make place for other entries).
      *
      * @return bool TRUE if the entry was successfully stored in the cache, FALSE otherwise.
      */
-    public function save($id, $data, $lifeTime = 0)
-    {
-        return $this->yiiCache->set($id, $data, $lifeTime);
-    }
+    public function save($id, $data, $lifeTime = 0);
 
     /**
      * Deletes a cache entry.
@@ -67,10 +62,7 @@ class AnnotationCache implements AnnotationCacheInterface
      * @return bool TRUE if the cache entry was successfully deleted, FALSE otherwise.
      *              Deleting a non-existing entry is considered successful.
      */
-    public function delete($id)
-    {
-        return $this->yiiCache->delete($id);
-    }
+    public function delete($id);
 
     /**
      * Retrieves cached information from the data store.
@@ -94,8 +86,5 @@ class AnnotationCache implements AnnotationCacheInterface
      *
      * @return array|null An associative array with server's statistics if available, NULL otherwise.
      */
-    public function getStats()
-    {
-        return null;
-    }
+    public function getStats();
 }
