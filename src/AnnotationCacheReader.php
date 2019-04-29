@@ -4,7 +4,13 @@ namespace yii\annotations;
 
 use Doctrine\Common\Annotations\Reader;
 use ReflectionClass;
+use ReflectionMethod;
+use ReflectionProperty;
 
+/**
+ * Class AnnotationCacheReader
+ * @package yii\annotations
+ */
 final class AnnotationCacheReader implements Reader
 {
     /**
@@ -77,7 +83,7 @@ final class AnnotationCacheReader implements Reader
     /**
      * {@inheritDoc}
      */
-    public function getPropertyAnnotations(\ReflectionProperty $property)
+    public function getPropertyAnnotations(ReflectionProperty $property)
     {
         $class = $property->getDeclaringClass();
         $cacheKey = $class->getName().'$'.$property->getName();
@@ -97,7 +103,7 @@ final class AnnotationCacheReader implements Reader
     /**
      * {@inheritDoc}
      */
-    public function getPropertyAnnotation(\ReflectionProperty $property, $annotationName)
+    public function getPropertyAnnotation(ReflectionProperty $property, $annotationName)
     {
         foreach ($this->getPropertyAnnotations($property) as $annot) {
             if ($annot instanceof $annotationName) {
@@ -111,7 +117,7 @@ final class AnnotationCacheReader implements Reader
     /**
      * {@inheritDoc}
      */
-    public function getMethodAnnotations(\ReflectionMethod $method)
+    public function getMethodAnnotations(ReflectionMethod $method)
     {
         $class = $method->getDeclaringClass();
         $cacheKey = $class->getName().'#'.$method->getName();
@@ -131,7 +137,7 @@ final class AnnotationCacheReader implements Reader
     /**
      * {@inheritDoc}
      */
-    public function getMethodAnnotation(\ReflectionMethod $method, $annotationName)
+    public function getMethodAnnotation(ReflectionMethod $method, $annotationName)
     {
         foreach ($this->getMethodAnnotations($method) as $annot) {
             if ($annot instanceof $annotationName) {
@@ -179,7 +185,7 @@ final class AnnotationCacheReader implements Reader
      *
      * @return void
      */
-    private function saveToCache($cacheKey, $value)
+    private function saveToCache($cacheKey, $value): void
     {
         $this->cache->save($cacheKey, $value);
         if ($this->debug) {
@@ -195,7 +201,7 @@ final class AnnotationCacheReader implements Reader
      *
      * @return boolean
      */
-    private function isCacheFresh($cacheKey, ReflectionClass $class)
+    private function isCacheFresh($cacheKey, ReflectionClass $class): bool
     {
         if (null === $lastModification = $this->getLastModification($class)) {
             return true;
@@ -210,7 +216,7 @@ final class AnnotationCacheReader implements Reader
      * @param ReflectionClass $class
      * @return int
      */
-    private function getLastModification(ReflectionClass $class)
+    private function getLastModification(ReflectionClass $class): int
     {
         $filename = $class->getFileName();
         $parent   = $class->getParentClass();
@@ -227,7 +233,7 @@ final class AnnotationCacheReader implements Reader
      * @param ReflectionClass $reflectionTrait
      * @return int
      */
-    private function getTraitLastModificationTime(ReflectionClass $reflectionTrait)
+    private function getTraitLastModificationTime(ReflectionClass $reflectionTrait): int
     {
         $fileName = $reflectionTrait->getFileName();
 

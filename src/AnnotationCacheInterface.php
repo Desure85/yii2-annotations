@@ -9,13 +9,28 @@ namespace yii\annotations;
  */
 interface AnnotationCacheInterface
 {
+    /**
+     *
+     */
     public const STATS_HITS             = 'hits';
+    /**
+     *
+     */
     public const STATS_MISSES           = 'misses';
+    /**
+     *
+     */
     public const STATS_UPTIME           = 'uptime';
+    /**
+     *
+     */
     public const STATS_MEMORY_USAGE     = 'memory_usage';
+    /**
+     *
+     */
     public const STATS_MEMORY_AVAILABLE = 'memory_available';
     /**
-     * Only for backward compatibility (may be removed in next major release)
+     * Only for backward compatibility (may be removed in next major doctrine/annotations release)
      *
      * @deprecated
      */
@@ -37,7 +52,7 @@ interface AnnotationCacheInterface
      *
      * @return bool TRUE if a cache entry exists for the given cache id, FALSE otherwise.
      */
-    public function contains($id);
+    public function contains($id): bool;
 
     /**
      * Puts data into the cache.
@@ -52,7 +67,7 @@ interface AnnotationCacheInterface
      *
      * @return bool TRUE if the entry was successfully stored in the cache, FALSE otherwise.
      */
-    public function save($id, $data, $lifeTime = 0);
+    public function save($id, $data, $lifeTime = 0): bool;
 
     /**
      * Deletes a cache entry.
@@ -62,7 +77,7 @@ interface AnnotationCacheInterface
      * @return bool TRUE if the cache entry was successfully deleted, FALSE otherwise.
      *              Deleting a non-existing entry is considered successful.
      */
-    public function delete($id);
+    public function delete($id): bool;
 
     /**
      * Retrieves cached information from the data store.
@@ -86,5 +101,5 @@ interface AnnotationCacheInterface
      *
      * @return array|null An associative array with server's statistics if available, NULL otherwise.
      */
-    public function getStats();
+    public function getStats():? array;
 }
