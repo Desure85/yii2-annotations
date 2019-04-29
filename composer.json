@@ -1,0 +1,32 @@
+{
+    "name": "egorov/yii2-annotation",
+    "description": "Allows you to use doctrine/annotations in Yii2 projects",
+    "type": "yii2-extension",
+    "require": {
+        "roave/security-advisories": "dev-master",
+        "doctrine/annotations": "^1.6.1"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-master",
+        "phpunit/phpunit": "<7",
+        "yiisoft/yii2-dev": "~2.0.14",
+        "doctrine/cache": "^1.8"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "d.egorov",
+            "email": "desure85@gmail.ru"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": { "yii\\annotations\\": "src" }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
+}
