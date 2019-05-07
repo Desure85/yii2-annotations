@@ -14,7 +14,7 @@ use yii\di\Instance;
 /**
  * Class Annotations
  */
-class Annotations extends Component
+class Annotations extends Component implements AnnotationsInterface
 {
     /**
      * @var string|CacheInterface
@@ -35,6 +35,11 @@ class Annotations extends Component
      * @var AnnotationCacheReader
      */
     private $reader;
+
+    /**
+     * @var array
+     */
+    public $ignoreAnnotations = [];
 
     /**
      *
@@ -59,12 +64,17 @@ class Annotations extends Component
             $cacheComponent->cachePath = Yii::getAlias($this->path);
             $cacheComponent->cacheFileSuffix = static::CACHE_PREFIX;
         }
+        $reader = new AnnotationReader();
+        foreach ($this->ignoreAnnotations as $annotation) {
+            $reader::addGlobalIgnoredName($annotation);
+        }
         $this->reader = new AnnotationCacheReader(
-            new AnnotationReader(),
+            $reader,
             new AnnotationCache($cacheComponent),
             $this->debug
         );
     }
+
 
     /**
      * @return AnnotationCacheReader
