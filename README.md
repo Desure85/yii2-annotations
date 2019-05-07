@@ -12,18 +12,23 @@ composer require egorov/yii2-annotations
     'components' => [
         'annotations' => [
             'class' => 'yii\annotations\Annotations',
-            
-            'cache' => '\yii\caching\FileCache' (Optional. Container with cache component defined
-                        in configuration or cache class. By default 'cache'),
-                        
-            'path' => '@runtime/annotations' (Optional. Annotations cache dir for \yii\caching\FileCache),
-            
-            'debug' => false (Optional. Debug enable)
+            'cache' => '\yii\caching\FileCache',
+            'path' => '@runtime/annotations',
+            'debug' => false,
+            'ignoreAnnotations' => [
+                'properties', 'relations', 'property'
+            ]
         ]
     ],
 ...
 ````  
+where :
 
+    class - yii\annotations\Annotations class or class implementing yii\annotations\AnnotationsInterface,
+    cache - Optional. Container with cache component defined in configuration or cache class. By default 'cache',
+    path -  Optional. Annotations cache dir for \yii\caching\FileCache,
+    debug - Optional boolean. Debug enable. True means that the cache will be invalid every time the file is changed, false - the cache will be generated once
+    ignoreAnnotations - List of ignored annotations when parsing a file
 
 **Annotation class**
 
