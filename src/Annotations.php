@@ -13,6 +13,8 @@ use yii\di\Instance;
 
 /**
  * Class Annotations
+ * @property CacheInterface|object $cacheComponent
+ * @property FileCache $defaultCache
  */
 class Annotations extends Component implements AnnotationsInterface
 {
@@ -42,6 +44,10 @@ class Annotations extends Component implements AnnotationsInterface
     public $ignoreAnnotations = [];
 
     /**
+     * @var FileCache
+     */
+    private const DEFAULT_CACHE = FileCache::class;
+    /**
      *
      */
     protected const CACHE_PREFIX = '.annotations';
@@ -53,21 +59,11 @@ class Annotations extends Component implements AnnotationsInterface
     public function init(): void
     {
         parent::init();
-        if (method_exists(AnnotationRegistry::class, 'registerLoader')) {
-            AnnotationRegistry::registerLoader('class_exists');
-        }
-        $cacheComponent = is_string($this->cache) ? Instance::ensure($this->cache) : $this->cache;
-        if (!$cacheComponent) {
-            $cacheComponent = new FileCache();
-        }
-        if ($cacheComponent instanceof FileCache && $this->path !== null) {
-            $cacheComponent->cachePath = Yii::getAlias($this->path);
-            $cacheComponent->cacheFileSuffix = static::CACHE_PREFIX;
-        }
+        $this->registerLoader();
+        $cacheComponent = $this->getCacheComponent();
+        $this->configurationCache($cacheComponent);
         $reader = new AnnotationReader();
-        foreach ($this->ignoreAnnotations as $annotation) {
-            $reader::addGlobalIgnoredName($annotation);
-        }
+        $this->configurationReader($reader);
         $this->reader = new AnnotationCacheReader(
             $reader,
             new AnnotationCache($cacheComponent),
@@ -75,12 +71,58 @@ class Annotations extends Component implements AnnotationsInterface
         );
     }
 
-
     /**
      * @return AnnotationCacheReader
      */
     public function getReader(): AnnotationCacheReader
     {
         return $this->reader;
+    }
+
+    /**
+     * @return object|CacheInterface
+     * @throws InvalidConfigException
+     */
+    private function getCacheComponent(): CacheInterface
+    {
+        return (is_string($this->cache) ? Instance::ensure($this->cache) : $this->cache) ?? $this->getDefaultCache();
+    }
+
+    /**
+     * Return default cache
+     */
+    private function getDefaultCache()
+    {
+        return self::DEFAULT_CACHE;
+    }
+
+    /**
+     * @param $cacheComponent
+     */
+    private function configurationCache(CacheInterface $cacheComponent)
+    {
+        if (property_exists($cacheComponent, 'cachePath') &&  $this->path !== null) {
+            $cacheComponent->cachePath = Yii::getAlias($this->path);
+        }
+        if (property_exists($cacheComponent, 'cacheFileSuffix')) {
+            $cacheComponent->cacheFileSuffix = static::CACHE_PREFIX;
+        }
+    }
+
+    private function registerLoader()
+    {
+        if (method_exists(AnnotationRegistry::class, 'registerLoader')) {
+            AnnotationRegistry::registerLoader('class_exists');
+        }
+    }
+
+    /**
+     * @param $reader
+     */
+    private function configurationReader(AnnotationReader $reader)
+    {
+        foreach ($this->ignoreAnnotations as $annotation) {
+            $reader::addGlobalIgnoredName($annotation);
+        }
     }
 }

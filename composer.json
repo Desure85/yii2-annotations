@@ -1,6 +1,6 @@
 {
     "name": "egorov/yii2-annotations",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Allows you to use doctrine/annotations in Yii2 projects",
     "type": "yii2-extension",
     "require": {
