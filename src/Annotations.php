@@ -33,7 +33,7 @@ class Annotations extends Component implements AnnotationsInterface
     public $path;
 
     /**
-     * @var AnnotationCacheReader
+     * @var AnnotationReader
      */
     private $reader;
 
