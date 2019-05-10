@@ -104,7 +104,7 @@ class Annotations extends Component implements AnnotationsInterface
      */
     private function configurationCache()
     {
-        if (property_exists($this->cacheComponent, 'cachePath') &&  $this->path !== null) {
+        if (property_exists($this->cacheComponent, 'cachePath') && $this->path !== null) {
             $this->cacheComponent->cachePath = Yii::getAlias($this->path);
         }
         if (property_exists($this->cacheComponent, 'cacheFileSuffix')) {
