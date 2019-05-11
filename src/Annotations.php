@@ -1,6 +1,7 @@
 <?php
 namespace yii\annotations;
 
+use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Yii;
@@ -51,8 +52,9 @@ class Annotations extends Component implements AnnotationsInterface
      * @var FileCache
      */
     private const DEFAULT_CACHE = FileCache::class;
+
     /**
-     *
+     * @var string
      */
     protected const CACHE_PREFIX = '.annotations';
 
@@ -68,6 +70,7 @@ class Annotations extends Component implements AnnotationsInterface
 
     /**
      * @return AnnotationCacheReader
+     * @throws AnnotationException
      */
     public function getReader(): AnnotationCacheReader
     {
@@ -100,13 +103,29 @@ class Annotations extends Component implements AnnotationsInterface
     }
 
     /**
-     *
+     * @return void
      */
-    private function configurationCache()
+    private function configurationCache(): void
+    {
+        $this->trySetCachePath();
+        $this->trySetCacheFileSuffix();
+    }
+
+    /**
+     * @return void
+     */
+    private function trySetCachePath(): void
     {
         if (property_exists($this->cacheComponent, 'cachePath') && $this->path !== null) {
             $this->cacheComponent->cachePath = Yii::getAlias($this->path);
         }
+    }
+
+    /**
+     * @return void
+     */
+    private function trySetCacheFileSuffix(): void
+    {
         if (property_exists($this->cacheComponent, 'cacheFileSuffix')) {
             $this->cacheComponent->cacheFileSuffix = static::CACHE_PREFIX;
         }
@@ -118,14 +137,16 @@ class Annotations extends Component implements AnnotationsInterface
     private function registerLoader()
     {
         if (method_exists(AnnotationRegistry::class, 'registerLoader')) {
+            /** @noinspection PhpDeprecationInspection */
             AnnotationRegistry::registerLoader('class_exists');
         }
     }
 
     /**
-     *
+     * @return void
+     * @throws AnnotationException
      */
-    private function enableNewReader()
+    private function enableNewReader(): void
     {
         $this->reader = new AnnotationReader();
         foreach ($this->ignoreAnnotations as $annotation) {
