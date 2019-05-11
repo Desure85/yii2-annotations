@@ -16,7 +16,7 @@ class AnnotationCache implements AnnotationCacheInterface
 
     /**
      * AnnotationCache constructor.
-     * @param $yiiCache
+     * @param CacheInterface $yiiCache
      */
     public function __construct(CacheInterface $yiiCache)
     {
