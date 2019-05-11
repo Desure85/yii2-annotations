@@ -203,7 +203,8 @@ final class AnnotationCacheReader implements Reader
      */
     private function isCacheFresh($cacheKey, ReflectionClass $class): bool
     {
-        if (null === ($lastModification = $this->getLastModification($class))) {
+        $lastModification = $this->getLastModification($class);
+        if (null === $lastModification) {
             return true;
         }
 
@@ -214,9 +215,9 @@ final class AnnotationCacheReader implements Reader
      * Returns the time the class was last modified, testing traits and parents
      *
      * @param ReflectionClass $class
-     * @return int|false
+     * @return mixed
      */
-    private function getLastModification(ReflectionClass $class): int
+    private function getLastModification(ReflectionClass $class)
     {
         $filename = $class->getFileName();
         $parent   = $class->getParentClass();
@@ -231,9 +232,9 @@ final class AnnotationCacheReader implements Reader
 
     /**
      * @param ReflectionClass $reflectionTrait
-     * @return int
+     * @return mixed
      */
-    private function getTraitLastModificationTime(ReflectionClass $reflectionTrait): int
+    private function getTraitLastModificationTime(ReflectionClass $reflectionTrait)
     {
         $fileName = $reflectionTrait->getFileName();
 

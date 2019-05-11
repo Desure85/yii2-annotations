@@ -35,5 +35,10 @@
             "type": "composer",
             "url": "https://asset-packagist.org"
         }
-    ]
+    ],
+    "scripts": {
+        "cs" : "./vendor/bin/phpcs",
+        "stan" : "./vendor/bin/phpstan analyse",
+        "test" : "./vendor/bin/phpunit --coverage-clover=coverage.clover"
+    }
 }
