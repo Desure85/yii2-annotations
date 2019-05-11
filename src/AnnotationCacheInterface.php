@@ -101,5 +101,5 @@ interface AnnotationCacheInterface
      *
      * @return array|null An associative array with server's statistics if available, NULL otherwise.
      */
-    public function getStats(): ? array;
+    public function getStats(): ?array;
 }

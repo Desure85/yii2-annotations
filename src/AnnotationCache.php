@@ -58,7 +58,7 @@ class AnnotationCache implements AnnotationCacheInterface
     /**
      * {@inheritDoc}
      */
-    public function getStats(): ? array
+    public function getStats(): ?array
     {
         return null;
     }
