@@ -44,7 +44,7 @@ final class AnnotationCacheReader implements Reader
     {
         $this->delegate = $reader;
         $this->cache = $cache;
-        $this->debug = (bool)$debug;
+        $this->debug = (bool) $debug;
     }
 
     /**
@@ -86,7 +86,7 @@ final class AnnotationCacheReader implements Reader
     public function getPropertyAnnotations(ReflectionProperty $property)
     {
         $class = $property->getDeclaringClass();
-        $cacheKey = $class->getName() . '$' . $property->getName();
+        $cacheKey = $class->getName().'$'.$property->getName();
 
         if (isset($this->loadedAnnotations[$cacheKey])) {
             return $this->loadedAnnotations[$cacheKey];
@@ -120,7 +120,7 @@ final class AnnotationCacheReader implements Reader
     public function getMethodAnnotations(ReflectionMethod $method)
     {
         $class = $method->getDeclaringClass();
-        $cacheKey = $class->getName() . '#' . $method->getName();
+        $cacheKey = $class->getName().'#'.$method->getName();
 
         if (isset($this->loadedAnnotations[$cacheKey])) {
             return $this->loadedAnnotations[$cacheKey];
@@ -189,7 +189,7 @@ final class AnnotationCacheReader implements Reader
     {
         $this->cache->save($cacheKey, $value);
         if ($this->debug) {
-            $this->cache->save('[C]' . $cacheKey, time());
+            $this->cache->save('[C]'.$cacheKey, time());
         }
     }
 
@@ -208,7 +208,7 @@ final class AnnotationCacheReader implements Reader
             return true;
         }
 
-        return $this->cache->fetch('[C]' . $cacheKey) >= $lastModification;
+        return $this->cache->fetch('[C]'.$cacheKey) >= $lastModification;
     }
 
     /**
