@@ -168,13 +168,21 @@ final class AnnotationCacheReader implements Reader
      */
     private function fetchFromCache($cacheKey, ReflectionClass $class)
     {
-        if (($data = $this->cache->fetch($cacheKey)) !== false) {
-            if (!$this->debug || $this->isCacheFresh($cacheKey, $class)) {
-                return $data;
-            }
+        if ((($data = $this->cache->fetch($cacheKey)) !== false) && $this->isCanReturnCacheData($cacheKey, $class)) {
+            return $data;
         }
 
         return false;
+    }
+
+    /**
+     * @param $cacheKey
+     * @param ReflectionClass $class
+     * @return bool
+     */
+    private function isCanReturnCacheData($cacheKey, ReflectionClass $class): bool
+    {
+        return (!$this->debug || $this->isCacheFresh($cacheKey, $class));
     }
 
     /**

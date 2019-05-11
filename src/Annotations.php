@@ -137,6 +137,7 @@ class Annotations extends Component implements AnnotationsInterface
     private function registerLoader()
     {
         if (method_exists(AnnotationRegistry::class, 'registerLoader')) {
+            /** @scrutinizer ignore-deprecated */
             /** @noinspection PhpDeprecationInspection */
             AnnotationRegistry::registerLoader('class_exists');
         }
