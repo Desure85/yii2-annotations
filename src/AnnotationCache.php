@@ -16,7 +16,7 @@ class AnnotationCache implements AnnotationCacheInterface
 
     /**
      * AnnotationCache constructor.
-     * @param $yiiCache
+     * @param CacheInterface $yiiCache
      */
     public function __construct(CacheInterface $yiiCache)
     {
@@ -58,7 +58,7 @@ class AnnotationCache implements AnnotationCacheInterface
     /**
      * {@inheritDoc}
      */
-    public function getStats(): ? array
+    public function getStats(): ?array
     {
         return null;
     }
