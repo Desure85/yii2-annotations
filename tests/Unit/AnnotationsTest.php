@@ -1,23 +1,33 @@
 <?php
 
-namespace yii\annotations\test\Unit;
+namespace yii\annotations\tests\Unit;
 
-use PHPUnit\Framework\TestCase;
+use Yii;
+use yii\annotations\AnnotationCacheReader;
+use yii\annotations\Annotations;
+use yii\annotations\tests\TestCase;
+use yii\base\InvalidConfigException;
+use yii\di\Instance;
 
 /**
  * Class AnnotationsTest
  * @package yii\annotations\test\Unit
  */
-class AnnotationsTest extends TestCase
+abstract class AnnotationsTest extends TestCase
 {
-
-    public function testGetReader()
+    /**
+     * @throws InvalidConfigException
+     */
+    public function testGetReader(): void
     {
-        $this->assertTrue(true);
+        $this->assertInstanceOf(AnnotationCacheReader::class, Instance::ensure('annotation')->getReader());
     }
 
-    public function testInit()
+    /**
+     * @throws InvalidConfigException
+     */
+    public function testSetComponent(): void
     {
-        $this->assertTrue(true);
+        $this->assertInstanceOf(Annotations::class, Instance::ensure('annotation'));
     }
 }

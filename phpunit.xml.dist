@@ -1,12 +1,13 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-         colors="true">
+         bootstrap="./tests/bootstrap.php"
+         colors="true"
+         verbose="true">
     <testsuites>
         <testsuite name="unit">
-            <directory>./test/</directory>
+            <directory>./tests/</directory>
         </testsuite>
     </testsuites>
-
     <filter>
         <whitelist>
             <directory>src</directory>

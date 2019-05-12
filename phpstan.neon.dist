@@ -3,5 +3,3 @@ parameters:
   paths:
     - src
     - tests
-  yii2:
-      config_path: tests/data/config.php

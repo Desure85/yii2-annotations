@@ -27,7 +27,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "yii\\annotations\\test\\": "tests"
+            "yii\\annotations\\": "src",
+            "yii\\annotations\\tests\\": "tests"
         }
     },
     "repositories": [
