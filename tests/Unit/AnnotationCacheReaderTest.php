@@ -2,52 +2,51 @@
 
 namespace yii\annotations\test\Unit;
 
-use PHPUnit\Framework\TestCase;
-
-/**
- * Class AnnotationCacheReaderTest
- * @package yii\annotations\test\Unit
- */
-class AnnotationCacheReaderTest extends TestCase
-{
-
-    public function testGetMethodAnnotations()
-    {
-        $this->assertTrue(true);
-    }
-
-    public function testClearLoadedAnnotations()
-    {
-        $this->assertTrue(true);
-    }
-
-    public function testGetClassAnnotations()
-    {
-        $this->assertTrue(true);
-    }
-
-    public function testGetClassAnnotation()
-    {
-        $this->assertTrue(true);
-    }
-
-    public function testGetMethodAnnotation()
-    {
-        $this->assertTrue(true);
-    }
-
-    public function test__construct()
-    {
-        $this->assertTrue(true);
-    }
-
-    public function testGetPropertyAnnotation()
-    {
-        $this->assertTrue(true);
-    }
-
-    public function testGetPropertyAnnotations()
-    {
-        $this->assertTrue(true);
-    }
-}
+//
+///**
+// * Class AnnotationCacheReaderTest
+// * @package yii\annotations\test\Unit
+// */
+//class AnnotationCacheReaderTest extends TestCase
+//{
+//
+//    public function testGetMethodAnnotations()
+//    {
+//        //TODO: create test
+//    }
+//
+//    public function testClearLoadedAnnotations()
+//    {
+//        //TODO: create test
+//    }
+//
+//    public function testGetClassAnnotations()
+//    {
+//        //TODO: create test
+//    }
+//
+//    public function testGetClassAnnotation()
+//    {
+//        //TODO: create test
+//    }
+//
+//    public function testGetMethodAnnotation()
+//    {
+//        //TODO: create test
+//    }
+//
+//    public function test__construct()
+//    {
+//        //TODO: create test
+//    }
+//
+//    public function testGetPropertyAnnotation()
+//    {
+//        //TODO: create test
+//    }
+//
+//    public function testGetPropertyAnnotations()
+//    {
+//        //TODO: create test
+//    }
+//}

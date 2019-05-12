@@ -4,9 +4,9 @@ namespace yii\annotations;
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use Exception;
 use Yii;
 use yii\base\Component;
-use yii\base\InvalidConfigException;
 use yii\caching\CacheInterface;
 use yii\caching\FileCache;
 use yii\di\Instance;
@@ -59,7 +59,6 @@ class Annotations extends Component implements AnnotationsInterface
     protected const CACHE_PREFIX = '.annotations';
 
     /**
-     * @throws InvalidConfigException
      */
     public function init(): void
     {
@@ -84,14 +83,25 @@ class Annotations extends Component implements AnnotationsInterface
 
     /**
      * @return void
-     * @throws InvalidConfigException
      */
     private function enableCacheComponent(): void
     {
         $this->cacheComponent = (is_string($this->cache)
-                ? Instance::ensure($this->cache)
+                ? $this->tryInstantiateCache()
                 : $this->cache) ?? $this->getDefaultCache();
         $this->configurationCache();
+    }
+
+    /**
+     * @return object|CacheInterface|null
+     */
+    private function tryInstantiateCache()
+    {
+        try {
+            return Instance::ensure($this->cache);
+        } catch (Exception $e) {
+            return null;
+        }
     }
 
     /**
@@ -99,7 +109,8 @@ class Annotations extends Component implements AnnotationsInterface
      */
     private function getDefaultCache()
     {
-        return self::DEFAULT_CACHE;
+        $defaultCache = static::DEFAULT_CACHE;
+        return new $defaultCache();
     }
 
     /**
