@@ -67,4 +67,20 @@ abstract class TestCase extends BaseTestCase
         $methodReflection->setAccessible(false);
         return $result;
     }
+
+    /**
+     * @param $object
+     * @param $property
+     * @return mixed
+     * @throws ReflectionException
+     */
+    protected function getProtectedProperty($object, $property)
+    {
+        $reflection = new ReflectionClass($object);
+        $reflection_property = $reflection->getProperty($property);
+        $reflection_property->setAccessible(true);
+        $property = $reflection_property->getValue($object);
+        $reflection_property->setAccessible(false);
+        return $property;
+    }
 }
