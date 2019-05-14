@@ -1,11 +1,12 @@
 <?php
 namespace yii\annotations;
 
+use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use Exception;
 use Yii;
 use yii\base\Component;
-use yii\base\InvalidConfigException;
 use yii\caching\CacheInterface;
 use yii\caching\FileCache;
 use yii\di\Instance;
@@ -33,7 +34,7 @@ class Annotations extends Component implements AnnotationsInterface
     public $path;
 
     /**
-     * @var AnnotationCacheReader
+     * @var AnnotationReader
      */
     private $reader;
 
@@ -51,13 +52,13 @@ class Annotations extends Component implements AnnotationsInterface
      * @var FileCache
      */
     private const DEFAULT_CACHE = FileCache::class;
+
     /**
-     *
+     * @var string
      */
     protected const CACHE_PREFIX = '.annotations';
 
     /**
-     * @throws InvalidConfigException
      */
     public function init(): void
     {
@@ -68,6 +69,7 @@ class Annotations extends Component implements AnnotationsInterface
 
     /**
      * @return AnnotationCacheReader
+     * @throws AnnotationException
      */
     public function getReader(): AnnotationCacheReader
     {
@@ -81,14 +83,25 @@ class Annotations extends Component implements AnnotationsInterface
 
     /**
      * @return void
-     * @throws InvalidConfigException
      */
     private function enableCacheComponent(): void
     {
         $this->cacheComponent = (is_string($this->cache)
-                ? Instance::ensure($this->cache)
+                ? $this->tryInstantiateCache()
                 : $this->cache) ?? $this->getDefaultCache();
         $this->configurationCache();
+    }
+
+    /**
+     * @return object|CacheInterface|null
+     */
+    private function tryInstantiateCache()
+    {
+        try {
+            return Instance::ensure($this->cache);
+        } catch (Exception $e) {
+            return null;
+        }
     }
 
     /**
@@ -96,17 +109,34 @@ class Annotations extends Component implements AnnotationsInterface
      */
     private function getDefaultCache()
     {
-        return self::DEFAULT_CACHE;
+        $defaultCache = static::DEFAULT_CACHE;
+        return new $defaultCache();
     }
 
     /**
-     *
+     * @return void
      */
-    private function configurationCache()
+    private function configurationCache(): void
     {
-        if (property_exists($this->cacheComponent, 'cachePath') &&  $this->path !== null) {
+        $this->trySetCachePath();
+        $this->trySetCacheFileSuffix();
+    }
+
+    /**
+     * @return void
+     */
+    private function trySetCachePath(): void
+    {
+        if (property_exists($this->cacheComponent, 'cachePath') && $this->path !== null) {
             $this->cacheComponent->cachePath = Yii::getAlias($this->path);
         }
+    }
+
+    /**
+     * @return void
+     */
+    private function trySetCacheFileSuffix(): void
+    {
         if (property_exists($this->cacheComponent, 'cacheFileSuffix')) {
             $this->cacheComponent->cacheFileSuffix = static::CACHE_PREFIX;
         }
@@ -118,14 +148,17 @@ class Annotations extends Component implements AnnotationsInterface
     private function registerLoader()
     {
         if (method_exists(AnnotationRegistry::class, 'registerLoader')) {
+            /** @scrutinizer ignore-deprecated */
+            /** @noinspection PhpDeprecationInspection */
             AnnotationRegistry::registerLoader('class_exists');
         }
     }
 
     /**
-     *
+     * @return void
+     * @throws AnnotationException
      */
-    private function enableNewReader()
+    private function enableNewReader(): void
     {
         $this->reader = new AnnotationReader();
         foreach ($this->ignoreAnnotations as $annotation) {
