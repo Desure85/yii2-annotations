@@ -1,5 +1,15 @@
 **Yii2 Annotations extension**
 
+Master: 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Desure85/yii2-annotations/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Desure85/yii2-annotations/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/Desure85/yii2-annotations/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Desure85/yii2-annotations/?branch=master)
+[![Build Status](https://travis-ci.org/Desure85/yii2-annotations.svg?branch=master)](https://travis-ci.org/Desure85/yii2-annotations)
+
+Develop:
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Desure85/yii2-annotations/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/Desure85/yii2-annotations/?branch=develop)
+[![Code Coverage](https://scrutinizer-ci.com/g/Desure85/yii2-annotations/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/Desure85/yii2-annotations/?branch=develop)
+[![Build Status](https://travis-ci.org/Desure85/yii2-annotations.svg?branch=develop)](https://travis-ci.org/Desure85/yii2-annotations)
+
 Use doctrine/annotations in Yii2 projects with Yii2 caching drivers
 
 **Install**
