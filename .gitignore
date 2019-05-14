@@ -2,3 +2,5 @@
 /.idea
 /vendor
 /composer.lock
+/tests/data/runtime/
+/tests/data/cache/
