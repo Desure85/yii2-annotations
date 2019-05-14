@@ -2,10 +2,14 @@
 
 namespace yii\annotations\tests\Unit;
 
+use Doctrine\Common\Annotations\AnnotationException;
+use Doctrine\Common\Annotations\AnnotationReader;
+use ReflectionClass;
 use ReflectionException;
 use Yii;
 use yii\annotations\AnnotationCacheReader;
 use yii\annotations\Annotations;
+use yii\annotations\tests\data\IgnoreAnnotatedClass;
 use yii\annotations\tests\TestCase;
 use yii\base\InvalidConfigException;
 use yii\caching\DummyCache;
@@ -66,5 +70,28 @@ abstract class AnnotationsTest extends TestCase
                 'cacheComponent'
             )
         );
+    }
+
+    /**
+     * @throws InvalidConfigException
+     * @throws ReflectionException
+     * @throws AnnotationException
+     */
+    public function testIgnoreAnnotation(): void
+    {
+        AnnotationReader::addGlobalIgnoredName('checkIgnore');
+        $this->assertContains(
+            'checkIgnore',
+            $this->getProtectedProperty(new AnnotationReader(), 'globalIgnoredNames')
+        );
+        Instance::ensure('annotation')
+            ->getReader()
+            ->getClassAnnotations(new ReflectionClass(IgnoreAnnotatedClass::class));
+        Instance::ensure('annotation')
+            ->getReader()
+            ->getPropertyAnnotations((new ReflectionClass(IgnoreAnnotatedClass::class))->getProperty('testProperty'));
+        Instance::ensure('annotation')
+            ->getReader()
+            ->getMethodAnnotations((new ReflectionClass(IgnoreAnnotatedClass::class))->getMethod('testMethod'));
     }
 }
