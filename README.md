@@ -363,3 +363,14 @@ Access one annotation of a property
 ````
 $reader->getPropertyAnnotation(\ReflectionProperty $property, $annotationName);
 ````
+
+**Get parser**
+Parse annotation directly from docBlock. It`s not cached
+````
+<?php
+...
+$reader = Yii::$app->annotations->getParser([
+    'annotationName' => AnnotationClass::class
+]);
+...
+````
