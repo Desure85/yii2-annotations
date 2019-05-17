@@ -365,6 +365,7 @@ $reader->getPropertyAnnotation(\ReflectionProperty $property, $annotationName);
 ````
 
 **Get parser**
+
 Parse annotation directly from docBlock. It`s not cached
 ````
 <?php
