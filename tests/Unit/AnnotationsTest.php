@@ -4,6 +4,7 @@ namespace yii\annotations\tests\Unit;
 
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Annotations\DocParser;
 use ReflectionClass;
 use ReflectionException;
 use Yii;
@@ -28,6 +29,14 @@ abstract class AnnotationsTest extends TestCase
     public function testGetReader(): void
     {
         $this->assertInstanceOf(AnnotationCacheReader::class, Instance::ensure('annotation')->getReader());
+    }
+
+    /**
+     * @throws InvalidConfigException
+     */
+    public function testGetParser(): void
+    {
+        $this->assertInstanceOf(DocParser::class, Instance::ensure('annotation')->getParser());
     }
 
     /**

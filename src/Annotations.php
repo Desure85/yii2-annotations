@@ -4,6 +4,7 @@ namespace yii\annotations;
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use Doctrine\Common\Annotations\DocParser;
 use Exception;
 use Yii;
 use yii\base\Component;
@@ -16,7 +17,7 @@ use yii\di\Instance;
  * @property CacheInterface|object $cacheComponent
  * @property FileCache $defaultCache
  */
-class Annotations extends Component implements AnnotationsInterface
+class Annotations extends Component implements AnnotationsInterface, ParserInterface
 {
     /**
      * @var string|CacheInterface
@@ -67,10 +68,7 @@ class Annotations extends Component implements AnnotationsInterface
         $this->enableCacheComponent();
     }
 
-    /**
-     * @return AnnotationCacheReader
-     * @throws AnnotationException
-     */
+    /** {@inheritDoc} */
     public function getReader(): AnnotationCacheReader
     {
         $this->enableNewReader();
@@ -164,5 +162,14 @@ class Annotations extends Component implements AnnotationsInterface
         foreach ($this->ignoreAnnotations as $annotation) {
             $this->reader::addGlobalIgnoredName($annotation);
         }
+    }
+
+    /** {@inheritDoc} */
+    public function getParser(array $importAnnotations = []): DocParser
+    {
+        $parser = new DocParser();
+        $parser->setImports($importAnnotations);
+        $parser->setIgnoreNotImportedAnnotations(true);
+        return $parser;
     }
 }
