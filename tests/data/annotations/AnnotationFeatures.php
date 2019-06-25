@@ -3,7 +3,6 @@
 
 namespace yii\annotations\tests\data\annotations;
 
-
 /**
  * Class AnnotationFeatures
  * @Annotation
