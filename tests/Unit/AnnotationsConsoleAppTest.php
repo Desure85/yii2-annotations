@@ -8,8 +8,7 @@ use yii\base\InvalidConfigException;
 use yii\console\Application as ConsoleApplication;
 
 /**
- * Class AnnotationsTest
- * @package yii\annotations\test\Unit
+ * Class AnnotationsTest.
  */
 class AnnotationsConsoleAppTest extends AnnotationsTest
 {
@@ -22,8 +21,6 @@ class AnnotationsConsoleAppTest extends AnnotationsTest
         AppHelper::testConsoleApplication();
     }
 
-    /**
-     */
     public function testConsoleInit(): void
     {
         $this->assertInstanceOf(ConsoleApplication::class, Yii::$app);

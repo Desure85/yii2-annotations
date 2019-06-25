@@ -8,8 +8,7 @@ use yii\base\InvalidConfigException;
 use yii\web\Application as WebApplication;
 
 /**
- * Class AnnotationsTest
- * @package yii\annotations\test\Unit
+ * Class AnnotationsTest.
  */
 class AnnotationsWebAppTest extends AnnotationsTest
 {
@@ -22,9 +21,6 @@ class AnnotationsWebAppTest extends AnnotationsTest
         AppHelper::testWebApplication();
     }
 
-
-    /**
-     */
     public function testWebInit(): void
     {
         $this->assertInstanceOf(WebApplication::class, Yii::$app);

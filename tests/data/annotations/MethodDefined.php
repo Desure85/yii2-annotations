@@ -3,15 +3,15 @@
 namespace yii\annotations\tests\data\annotations;
 
 /**
- * Class MethodDefined
+ * Class MethodDefined.
+ *
  * @Annotation
  * @Target({"METHOD"})
- * @package yii\annotations\tests\data\annotations
  */
 class MethodDefined
 {
     /**
-     * @var boolean
+     * @var bool
      */
     public $check;
 

@@ -18,8 +18,7 @@ use yii\caching\DummyCache;
 use yii\di\Instance;
 
 /**
- * Class AnnotationCacheReaderTest
- * @package yii\annotations\test\Unit
+ * Class AnnotationCacheReaderTest.
  */
 class AnnotationCacheReaderTest extends TestCase
 {

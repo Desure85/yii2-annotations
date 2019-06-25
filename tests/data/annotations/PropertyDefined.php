@@ -3,15 +3,15 @@
 namespace yii\annotations\tests\data\annotations;
 
 /**
- * Class PropertyDefined
+ * Class PropertyDefined.
+ *
  * @Annotation
  * @Target({"PROPERTY"})
- * @package yii\annotations\tests\data\annotations
  */
 class PropertyDefined
 {
     /**
-     * @var boolean
+     * @var bool
      */
     public $check;
 

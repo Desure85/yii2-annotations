@@ -2,12 +2,12 @@
 
 namespace yii\annotations\tests;
 
-use /** @noinspection PhpUndefinedClassInspection */
+use /* @noinspection PhpUndefinedClassInspection */
     PHPUnit\Framework\TestCase as BaseTestCase;
 use ReflectionClass;
 use ReflectionException;
-use yii\di\Container;
 use Yii;
+use yii\di\Container;
 
 /** @noinspection PhpUndefinedClassInspection */
 
@@ -20,21 +20,25 @@ abstract class TestCase extends BaseTestCase
      * @var array
      */
     public static $params;
+
     /**
      * Clean up after tests in test class.
      * By default the application created with [[testApplication]] will be destroyed.
      */
     public static function tearDownAfterClass()
     {
-        /** @noinspection PhpUndefinedClassInspection */
+        /* @noinspection PhpUndefinedClassInspection */
         parent::tearDownAfterClass();
         self::destroyApplication();
     }
+
     /**
-     * Returns a test configuration param from /data/config.php
-     * @param string $name params name
-     * @param mixed $default default value to use when param is not set.
-     * @return mixed  the value of the configuration param
+     * Returns a test configuration param from /data/config.php.
+     *
+     * @param string $name    params name
+     * @param mixed  $default default value to use when param is not set.
+     *
+     * @return mixed the value of the configuration param
      */
     public static function getParam($name, $default = null)
     {
@@ -52,11 +56,14 @@ abstract class TestCase extends BaseTestCase
 
     /**
      * Invokes object method, even if it is private or protected.
+     *
      * @param object $object object.
      * @param string $method method name.
-     * @param array $args method arguments
-     * @return mixed method result
+     * @param array  $args   method arguments
+     *
      * @throws ReflectionException
+     *
+     * @return mixed method result
      */
     protected function invoke($object, $method, array $args = [])
     {
@@ -65,14 +72,17 @@ abstract class TestCase extends BaseTestCase
         $methodReflection->setAccessible(true);
         $result = $methodReflection->invokeArgs($object, $args);
         $methodReflection->setAccessible(false);
+
         return $result;
     }
 
     /**
      * @param $object
      * @param $property
-     * @return mixed
+     *
      * @throws ReflectionException
+     *
+     * @return mixed
      */
     protected function getProtectedProperty($object, $property)
     {
@@ -81,6 +91,7 @@ abstract class TestCase extends BaseTestCase
         $reflection_property->setAccessible(true);
         $property = $reflection_property->getValue($object);
         $reflection_property->setAccessible(false);
+
         return $property;
     }
 }

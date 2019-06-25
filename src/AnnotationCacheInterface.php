@@ -9,28 +9,17 @@ namespace yii\annotations;
  */
 interface AnnotationCacheInterface
 {
-    /**
-     *
-     */
     public const STATS_HITS = 'hits';
-    /**
-     *
-     */
+
     public const STATS_MISSES = 'misses';
-    /**
-     *
-     */
+
     public const STATS_UPTIME = 'uptime';
-    /**
-     *
-     */
+
     public const STATS_MEMORY_USAGE = 'memory_usage';
-    /**
-     *
-     */
+
     public const STATS_MEMORY_AVAILABLE = 'memory_available';
     /**
-     * Only for backward compatibility (may be removed in next major doctrine/annotations release)
+     * Only for backward compatibility (may be removed in next major doctrine/annotations release).
      *
      * @deprecated
      */

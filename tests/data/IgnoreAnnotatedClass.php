@@ -5,7 +5,8 @@ namespace yii\annotations\tests\data;
 use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
 
 /**
- * Class AnnotatedClass
+ * Class AnnotatedClass.
+ *
  * @IgnoreAnnotation("ignoreInline")
  * @checkIgnore
  * @ignoreInline

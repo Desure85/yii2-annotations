@@ -1,11 +1,11 @@
 <?php
+
 namespace yii\annotations;
 
 use yii\caching\CacheInterface;
 
 /**
- * Class AnnotationCache
- * @package yii\annotations
+ * Class AnnotationCache.
  */
 class AnnotationCache implements AnnotationCacheInterface
 {
@@ -16,6 +16,7 @@ class AnnotationCache implements AnnotationCacheInterface
 
     /**
      * AnnotationCache constructor.
+     *
      * @param CacheInterface $yiiCache
      */
     public function __construct(CacheInterface $yiiCache)
@@ -24,7 +25,7 @@ class AnnotationCache implements AnnotationCacheInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function fetch($id)
     {
@@ -32,7 +33,7 @@ class AnnotationCache implements AnnotationCacheInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function contains($id): bool
     {
@@ -40,7 +41,7 @@ class AnnotationCache implements AnnotationCacheInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function save($id, $data, $lifeTime = 0): bool
     {
@@ -48,7 +49,7 @@ class AnnotationCache implements AnnotationCacheInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function delete($id): bool
     {
@@ -56,7 +57,7 @@ class AnnotationCache implements AnnotationCacheInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getStats(): ?array
     {

@@ -9,15 +9,16 @@ use yii\helpers\ArrayHelper;
 use yii\web\Application as WebApplication;
 
 /**
- * Class AppHelper
- * @package yii\annotations\tests\data
+ * Class AppHelper.
  */
 class AppHelper
 {
     /**
      * Populates Yii::$app with a new application
      * The application will be destroyed on tearDown() automatically.
+     *
      * @param array $config The application configuration, if needed
+     *
      * @throws InvalidConfigException
      */
     public static function testWebApplication($config = []): void
@@ -30,7 +31,9 @@ class AppHelper
     /**
      * Populates Yii::$app with a new application
      * The application will be destroyed on tearDown() automatically.
+     *
      * @param array $config The application configuration, if needed
+     *
      * @throws InvalidConfigException
      */
     public static function testConsoleApplication($config = []): void
@@ -46,13 +49,13 @@ class AppHelper
     protected static function baseConfig(): array
     {
         return [
-            'basePath' => __DIR__,
-            'vendorPath' => dirname(__DIR__) . '/vendor',
+            'basePath'   => __DIR__,
+            'vendorPath' => dirname(__DIR__).'/vendor',
             'components' => [
                 'annotation' => [
                     'class' => Annotations::class,
                 ],
-            ]
+            ],
         ];
     }
 }

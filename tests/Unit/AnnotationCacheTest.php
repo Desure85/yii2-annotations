@@ -10,8 +10,7 @@ use yii\annotations\tests\TestCase;
 use yii\caching\FileCache;
 
 /**
- * Class AnnotationCacheTest
- * @package yii\annotations\test\Unit
+ * Class AnnotationCacheTest.
  */
 class AnnotationCacheTest extends TestCase
 {
@@ -24,13 +23,13 @@ class AnnotationCacheTest extends TestCase
     {
         parent::setUp();
         if (method_exists(AnnotationRegistry::class, 'registerLoader')) {
-            /** @scrutinizer ignore-deprecated */
-            /** @noinspection PhpDeprecationInspection */
+            /* @scrutinizer ignore-deprecated */
+            /* @noinspection PhpDeprecationInspection */
             AnnotationRegistry::registerLoader('class_exists');
         }
         $this->cache = new AnnotationCache(new FileCache([
-            'cachePath' => __DIR__ .  '/../data/cache',
-            'cacheFileSuffix' => '.annotation'
+            'cachePath'       => __DIR__.'/../data/cache',
+            'cacheFileSuffix' => '.annotation',
         ]));
     }
 
@@ -46,6 +45,7 @@ class AnnotationCacheTest extends TestCase
                 $this->cache->save('test.cache', ['testData' => true])
             );
             $this->assertTrue($this->cache->contains('test.cache'));
+
             return;
         } catch (Exception $e) {
         }
@@ -59,6 +59,7 @@ class AnnotationCacheTest extends TestCase
                 ['testData' => true],
                 $this->cache->fetch('test.cache')
             );
+
             return;
         } catch (Exception $e) {
         }
@@ -71,6 +72,7 @@ class AnnotationCacheTest extends TestCase
             $this->assertTrue(
                 $this->cache->contains('test.cache')
             );
+
             return;
         } catch (Exception $e) {
         }
@@ -84,13 +86,12 @@ class AnnotationCacheTest extends TestCase
                 $this->cache->delete('test.cache')
             );
             $this->assertFalse($this->cache->contains('test.cache'));
+
             return;
         } catch (Exception $e) {
         }
         $this->fail($e->getMessage() ?? 'Error cache contains');
     }
-
-
 
     public function testGetStats()
     {

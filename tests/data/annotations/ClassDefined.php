@@ -4,16 +4,17 @@ namespace yii\annotations\tests\data\annotations;
 
 use yii\annotations\tests\data\annotations\AnnotationDefined as AnnotationDefinedAlias;
 use yii\annotations\tests\data\annotations\AnnotationFeatures as AnnotationFeaturesAlias;
+
 /**
- * Class ClassDefined
+ * Class ClassDefined.
+ *
  * @Annotation
  * @Target({"CLASS"})
- * @package yii\annotations\tests\data\annotations
  */
 class ClassDefined
 {
     /**
-     * @var boolean
+     * @var bool
      */
     public $check;
 

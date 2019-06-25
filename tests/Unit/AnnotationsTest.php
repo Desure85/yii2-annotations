@@ -18,8 +18,7 @@ use yii\caching\FileCache;
 use yii\di\Instance;
 
 /**
- * Class AnnotationsTest
- * @package yii\annotations\test\Unit
+ * Class AnnotationsTest.
  */
 abstract class AnnotationsTest extends TestCase
 {

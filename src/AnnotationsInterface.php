@@ -5,14 +5,14 @@ namespace yii\annotations;
 use Doctrine\Common\Annotations\AnnotationException;
 
 /**
- * Interface AnnotationsInterface
- * @package yii\annotations
+ * Interface AnnotationsInterface.
  */
 interface AnnotationsInterface
 {
     /**
-     * @return AnnotationCacheReader
      * @throws AnnotationException
+     *
+     * @return AnnotationCacheReader
      */
     public function getReader(): AnnotationCacheReader;
 }

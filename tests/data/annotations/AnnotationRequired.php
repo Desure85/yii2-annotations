@@ -6,16 +6,17 @@ use Doctrine\Common\Annotations\Annotation\Required;
 use Doctrine\Common\Annotations\Annotation\Target;
 
 /**
- * Class AnnotationDefined
+ * Class AnnotationDefined.
+ *
  * @Annotation
  * @Target({"METHOD"})
- * @package yii\annotations\tests\data\annotations
  */
 class AnnotationRequired
 {
     /**
      * @Required
-     * @var boolean
+     *
+     * @var bool
      */
     public $check;
 }

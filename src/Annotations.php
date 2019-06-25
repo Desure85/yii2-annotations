@@ -1,4 +1,5 @@
 <?php
+
 namespace yii\annotations;
 
 use Doctrine\Common\Annotations\AnnotationException;
@@ -13,7 +14,8 @@ use yii\caching\FileCache;
 use yii\di\Instance;
 
 /**
- * Class Annotations
+ * Class Annotations.
+ *
  * @property CacheInterface|object $cacheComponent
  * @property FileCache $defaultCache
  */
@@ -59,8 +61,6 @@ class Annotations extends Component implements AnnotationsInterface, ParserInter
      */
     protected const CACHE_PREFIX = '.annotations';
 
-    /**
-     */
     public function init(): void
     {
         parent::init();
@@ -68,10 +68,11 @@ class Annotations extends Component implements AnnotationsInterface, ParserInter
         $this->enableCacheComponent();
     }
 
-    /** {@inheritDoc} */
+    /** {@inheritdoc} */
     public function getReader(): AnnotationCacheReader
     {
         $this->enableNewReader();
+
         return new AnnotationCacheReader(
             $this->reader,
             new AnnotationCache($this->cacheComponent),
@@ -98,16 +99,17 @@ class Annotations extends Component implements AnnotationsInterface, ParserInter
         try {
             return Instance::ensure($this->cache);
         } catch (Exception $e) {
-            return null;
+            return;
         }
     }
 
     /**
-     * Return default cache
+     * Return default cache.
      */
     private function getDefaultCache()
     {
         $defaultCache = static::DEFAULT_CACHE;
+
         return new $defaultCache();
     }
 
@@ -140,21 +142,19 @@ class Annotations extends Component implements AnnotationsInterface, ParserInter
         }
     }
 
-    /**
-     *
-     */
     private function registerLoader()
     {
         if (method_exists(AnnotationRegistry::class, 'registerLoader')) {
-            /** @scrutinizer ignore-deprecated */
-            /** @noinspection PhpDeprecationInspection */
+            /* @scrutinizer ignore-deprecated */
+            /* @noinspection PhpDeprecationInspection */
             AnnotationRegistry::registerLoader('class_exists');
         }
     }
 
     /**
-     * @return void
      * @throws AnnotationException
+     *
+     * @return void
      */
     private function enableNewReader(): void
     {
@@ -164,12 +164,13 @@ class Annotations extends Component implements AnnotationsInterface, ParserInter
         }
     }
 
-    /** {@inheritDoc} */
+    /** {@inheritdoc} */
     public function getParser(array $importAnnotations = []): DocParser
     {
         $parser = new DocParser();
         $parser->setImports($importAnnotations);
         $parser->setIgnoreNotImportedAnnotations(true);
+
         return $parser;
     }
 }

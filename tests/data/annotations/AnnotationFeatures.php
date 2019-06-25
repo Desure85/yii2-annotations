@@ -1,34 +1,32 @@
 <?php
 
-
 namespace yii\annotations\tests\data\annotations;
 
-
 /**
- * Class AnnotationFeatures
+ * Class AnnotationFeatures.
+ *
  * @Annotation
  * @Target({"ALL"})
- * @package yii\annotations\tests\data\annotations
  */
 class AnnotationFeatures
 {
     /**
-     * @var boolean
+     * @var bool
      */
     public $check;
 
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $integer;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $boolean;
 
@@ -47,9 +45,9 @@ class AnnotationFeatures
      */
     protected $array;
 
-
     /**
      * AnnotationFeatures constructor.
+     *
      * @param array $values
      */
     public function __construct(array $values)

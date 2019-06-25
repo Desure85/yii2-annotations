@@ -8,8 +8,7 @@ use ReflectionMethod;
 use ReflectionProperty;
 
 /**
- * Class AnnotationCacheReader
- * @package yii\annotations
+ * Class AnnotationCacheReader.
  */
 final class AnnotationCacheReader implements Reader
 {
@@ -24,31 +23,31 @@ final class AnnotationCacheReader implements Reader
     private $cache;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $debug;
 
     /**
      * @var array
      */
-    private $loadedAnnotations = array();
+    private $loadedAnnotations = [];
 
     /**
      * Constructor.
      *
-     * @param Reader $reader
-     * @param AnnotationCacheInterface  $cache
-     * @param bool   $debug
+     * @param Reader                   $reader
+     * @param AnnotationCacheInterface $cache
+     * @param bool                     $debug
      */
     public function __construct(Reader $reader, AnnotationCacheInterface $cache, $debug = false)
     {
         $this->delegate = $reader;
         $this->cache = $cache;
-        $this->debug = (bool)$debug;
+        $this->debug = (bool) $debug;
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getClassAnnotations(ReflectionClass $class)
     {
@@ -67,7 +66,7 @@ final class AnnotationCacheReader implements Reader
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getClassAnnotation(ReflectionClass $class, $annotationName)
     {
@@ -76,17 +75,15 @@ final class AnnotationCacheReader implements Reader
                 return $annot;
             }
         }
-
-        return null;
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getPropertyAnnotations(ReflectionProperty $property)
     {
         $class = $property->getDeclaringClass();
-        $cacheKey = $class->getName() . '$' . $property->getName();
+        $cacheKey = $class->getName().'$'.$property->getName();
 
         if (isset($this->loadedAnnotations[$cacheKey])) {
             return $this->loadedAnnotations[$cacheKey];
@@ -101,7 +98,7 @@ final class AnnotationCacheReader implements Reader
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getPropertyAnnotation(ReflectionProperty $property, $annotationName)
     {
@@ -110,17 +107,15 @@ final class AnnotationCacheReader implements Reader
                 return $annot;
             }
         }
-
-        return null;
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getMethodAnnotations(ReflectionMethod $method)
     {
         $class = $method->getDeclaringClass();
-        $cacheKey = $class->getName() . '#' . $method->getName();
+        $cacheKey = $class->getName().'#'.$method->getName();
 
         if (isset($this->loadedAnnotations[$cacheKey])) {
             return $this->loadedAnnotations[$cacheKey];
@@ -135,7 +130,7 @@ final class AnnotationCacheReader implements Reader
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getMethodAnnotation(ReflectionMethod $method, $annotationName)
     {
@@ -144,8 +139,6 @@ final class AnnotationCacheReader implements Reader
                 return $annot;
             }
         }
-
-        return null;
     }
 
     /**
@@ -155,7 +148,7 @@ final class AnnotationCacheReader implements Reader
      */
     public function clearLoadedAnnotations(): void
     {
-        $this->loadedAnnotations = array();
+        $this->loadedAnnotations = [];
     }
 
     /**
@@ -178,11 +171,12 @@ final class AnnotationCacheReader implements Reader
     /**
      * @param $cacheKey
      * @param ReflectionClass $class
+     *
      * @return bool
      */
     private function isCanReturnCacheData($cacheKey, ReflectionClass $class): bool
     {
-        return (!$this->debug || $this->isCacheFresh($cacheKey, $class));
+        return !$this->debug || $this->isCacheFresh($cacheKey, $class);
     }
 
     /**
@@ -197,17 +191,17 @@ final class AnnotationCacheReader implements Reader
     {
         $this->cache->save($cacheKey, $value);
         if ($this->debug) {
-            $this->cache->save('[C]' . $cacheKey, time());
+            $this->cache->save('[C]'.$cacheKey, time());
         }
     }
 
     /**
      * Checks if the cache is fresh.
      *
-     * @param string           $cacheKey
+     * @param string          $cacheKey
      * @param ReflectionClass $class
      *
-     * @return boolean
+     * @return bool
      */
     private function isCacheFresh($cacheKey, ReflectionClass $class): bool
     {
@@ -216,19 +210,20 @@ final class AnnotationCacheReader implements Reader
             return true;
         }
 
-        return $this->cache->fetch('[C]' . $cacheKey) >= $lastModification;
+        return $this->cache->fetch('[C]'.$cacheKey) >= $lastModification;
     }
 
     /**
-     * Returns the time the class was last modified, testing traits and parents
+     * Returns the time the class was last modified, testing traits and parents.
      *
      * @param ReflectionClass $class
+     *
      * @return mixed
      */
     private function getLastModification(ReflectionClass $class)
     {
         $filename = $class->getFileName();
-        $parent   = $class->getParentClass();
+        $parent = $class->getParentClass();
 
         return max(array_merge(
             [$filename ? filemtime($filename) : 0],
@@ -240,6 +235,7 @@ final class AnnotationCacheReader implements Reader
 
     /**
      * @param ReflectionClass $reflectionTrait
+     *
      * @return mixed
      */
     private function getTraitLastModificationTime(ReflectionClass $reflectionTrait)

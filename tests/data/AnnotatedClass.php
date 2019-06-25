@@ -2,23 +2,20 @@
 
 namespace yii\annotations\tests\data;
 
+use yii\annotations\tests\data\annotations\AnnotationFeatures;
 use yii\annotations\tests\data\annotations\AnnotationRequired;
 use yii\annotations\tests\data\annotations\ClassDefined;
 use yii\annotations\tests\data\annotations\MethodDefined;
 use yii\annotations\tests\data\annotations\PropertyDefined;
-use yii\annotations\tests\data\annotations\AnnotationFeatures;
 
 /**
- * Class AnnotatedClass
+ * Class AnnotatedClass.
+ *
  * @ClassDefined(check = true)
  * @AnnotationFeatures(check=true)
- * @package yii\annotations\test\data
  */
 class AnnotatedClass
 {
-    /**
-     *
-     */
     public const CHECK_CONST = true;
 
     /**
