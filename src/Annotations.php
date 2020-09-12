@@ -1,4 +1,5 @@
 <?php
+
 namespace yii\annotations;
 
 use Doctrine\Common\Annotations\AnnotationException;

@@ -1,4 +1,5 @@
 <?php
+
 namespace yii\annotations;
 
 use yii\caching\CacheInterface;
